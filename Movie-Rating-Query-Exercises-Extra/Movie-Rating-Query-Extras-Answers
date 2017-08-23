@@ -86,3 +86,13 @@ FROM
 FROM Movie INNER JOIN Rating ON Movie.mID=Rating.mID
 GROUP BY Movie.mID
 ORDER BY AVG(stars) DESC, title) M1))
+
+Q10 alternative
+select movie.title, avg(rating.stars) from movie inner join rating on movie.mid=rating.mid 
+group by
+movie.title having avg(rating.stars) in
+(select avg(rating.stars) from movie inner join rating
+on movie.mid=rating.mid
+group by movie.title
+order by avg(rating.stars) desc
+limit 1)
