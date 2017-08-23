@@ -96,3 +96,19 @@ on movie.mid=rating.mid
 group by movie.title
 order by avg(rating.stars) desc
 limit 1)
+
+Q11
+select movie.title, avg(rating.stars) from movie inner join rating on movie.mid=rating.mid 
+group by
+movie.title having avg(rating.stars) in
+(select avg(rating.stars) from movie inner join rating
+on movie.mid=rating.mid
+group by movie.title
+order by avg(rating.stars) asc
+limit 1)
+
+Q12
+select distinct movie.director, movie.title, max(rating.stars) from movie natural join rating
+where director is not null
+group by movie.director
+
